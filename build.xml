@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ========================================= -->
+<!-- Generate JAXB classes for XML Preferences -->
+<!-- ========================================= -->
+
+<project name="Preferences - XML" default="generate">
+	<description>
+		Generates the JAXB classes from the XML schema files in this project.
+	</description>
+
+	<!-- Imports and properties -->
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath>
+			<fileset dir="${user.libraries}/jaxb/lib" includes="jaxb-xjc.jar"/>
+		</classpath>
+	</taskdef>
+
+	<!-- Generate JAXB classes -->
+	<target name="generate">
+		<xjc schema="Schema/Preferences.xsd" destdir="Java" extension="true"/>
+
+		<replace file="Java/nz/net/ultraq/preferences/xml/Node.java">
+<replacetoken><![CDATA[
+    protected String _package;
+]]></replacetoken>
+<replacevalue><![CDATA[
+	protected String _package;
+
+	/**
+	 * Compares preferences nodes.  Nodes are equal if they share the same
+	 * 'package' name.
+	 * 
+	 * @return <tt>true</tt> if both objects share the same package name,
+	 * 		   <tt>false</tt> otherwise.
+	 */
+	@Override
+	public boolean equals(Object o) {
+
+		return o instanceof Node && ((Node)o).name.equals(name);
+	}
+]]></replacevalue>
+		</replace>
+	</target>
+
+</project>
