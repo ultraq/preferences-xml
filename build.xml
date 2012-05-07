@@ -12,15 +12,15 @@
 	<!-- Imports and properties -->
 	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
 		<classpath>
-			<fileset dir="${user.libraries}/jaxb/lib" includes="jaxb-xjc.jar"/>
+			<fileset dir="D:/Programming/Libraries/jaxb/lib" includes="jaxb-xjc.jar"/>
 		</classpath>
 	</taskdef>
 
 	<!-- Generate JAXB classes -->
 	<target name="generate">
-		<xjc schema="Schema/Preferences.xsd" destdir="Java" extension="true"/>
+		<xjc schema="Java/nz/net/ultraq/preferences/xml/Preferences.xsd" destdir="Java" extension="true"/>
 
-		<replace file="Java/nz/net/ultraq/preferences/xml/Node.java">
+		<replace file="Java/nz/net/ultraq/preferences/xml/XMLNode.java">
 <replacetoken><![CDATA[
     protected String _package;
 ]]></replacetoken>
