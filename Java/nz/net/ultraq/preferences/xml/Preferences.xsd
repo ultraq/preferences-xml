@@ -33,6 +33,11 @@
 	</xsd:element>
 
 	<!-- Preferences node, a list of preferences and/or a parent of other preference nodes -->
+	<xsd:complexType name="Nodes">
+		<xsd:sequence>
+			<xsd:element name="node" type="Node" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:complexType name="Node">
 		<xsd:annotation>
 			<xsd:appinfo>
@@ -41,18 +46,13 @@
 		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="entries" type="Entries" minOccurs="0"/>
-			<xsd:element name="node" type="Node" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="nodes" type="Nodes" minOccurs="0"/>
 		</xsd:sequence>
 		<xsd:attribute name="name" type="xsd:string" use="required"/>
 	</xsd:complexType>
 
 	<!-- Preferences map, contains key/value pairs -->
 	<xsd:complexType name="Entries">
-		<xsd:annotation>
-			<xsd:appinfo>
-				<jxb:class name="XMLEntries"/>
-			</xsd:appinfo>
-		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="entry" type="Entry" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
