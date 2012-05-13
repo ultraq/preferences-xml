@@ -58,15 +58,13 @@ class XMLPreferences extends AbstractPreferences {
 	/**
 	 * Constructor, creates a new child preference node.
 	 * 
-	 * @param parent	  Parent node of this child.
-	 * @param name		  Name of this child node.
-	 * @param preferences Node in the XML that maps to this child.
+	 * @param parent Parent node of this child.
+	 * @param name	 Name of this child node.
 	 */
-	private XMLPreferences(XMLPreferences parent, String name, XMLNode preferences) {
+	private XMLPreferences(XMLPreferences parent, String name) {
 
 		super(parent, name);
-		this.root        = null;
-		this.preferences = preferences;
+		this.root = null;
 	}
 
 	/**
@@ -75,7 +73,12 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected String[] childrenNamesSpi() {
 
-		String[] childrennames = new String[preferences.getMap().getEntry().size()];
+		List<XMLNode> nodes = preferences.getNodes();
+		String[] childrennames = new String[nodes.size()];
+		for (int i = 0; i < childrennames.length; i++) {
+			childrennames[i] = nodes.get(i).getName();
+		}
+		return childrennames;
 	}
 
 	/**
@@ -84,6 +87,7 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected XMLPreferences childSpi(String name) {
 
+		return new XMLPreferences(this, name);
 	}
 
 	/**
@@ -119,6 +123,12 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected String getSpi(String key) {
 
+		for (XMLEntry entry: preferences.getEntries()) {
+			if (key.equals(entry.getKey())) {
+				return entry.getValue();
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -127,6 +137,12 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected String[] keysSpi() {
 
+		List<XMLEntry> entries = preferences.getEntries();
+		String[] keys = new String[entries.size()];
+		for (int i = 0; i < keys.length; i++) {
+			keys[i] = entries.get(i).getKey();
+		}
+		return keys;
 	}
 
 	/**
@@ -135,6 +151,13 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected void putSpi(String key, String value) {
 
+		for (XMLEntry entry: preferences.getEntries()) {
+			if (key.equals(entry.getKey())) {
+				entry.setValue(value);
+				return;
+			}
+		}
+		preferences.getEntries().add(new XMLEntry(key, value));
 	}
 
 	/**
@@ -156,6 +179,8 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected void removeNodeSpi() {
 
+		preferences.getEntries().clear();
+		preferences.getNodes().clear();
 	}
 
 	/**
@@ -164,6 +189,11 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected void removeSpi(String key) {
 
+		for (XMLEntry entry: preferences.getEntries()) {
+			if (key.equals(entry.getKey())) {
+				entry.setValue(null);
+			}
+		}
 	}
 
 	/**
@@ -180,7 +210,7 @@ class XMLPreferences extends AbstractPreferences {
 		try {
 			// Update from the XML file
 			XMLRoot fileroot = readFromXML();
-			for (XMLNode filepreferences: fileroot.getNode()) {
+			for (XMLNode filepreferences: fileroot.getNodes()) {
 				String filechildname = filepreferences.getName();
 				XMLPreferences child = (XMLPreferences)getChild(filechildname);
 				child.sync(filepreferences);
@@ -204,12 +234,12 @@ class XMLPreferences extends AbstractPreferences {
 	private void sync(XMLNode updatepreferences) throws BackingStoreException {
 
 		// Update this node's preferences
-		for (XMLEntry newpreference: updatepreferences.getEntries()) {
-			put(newpreference.getKey(), newpreference.getValue());
+		for (XMLEntry updatepreference: updatepreferences.getEntries()) {
+			put(updatepreference.getKey(), updatepreference.getValue());
 		}
 
 		// Update children
-		List<XMLNode> newpreferenceslist = updatepreferences.getNode();
+		List<XMLNode> newpreferenceslist = updatepreferences.getNodes();
 		for (XMLNode newpreferences: newpreferenceslist) {
 			String newchildname = newpreferences.getName();
 			XMLPreferences child = (XMLPreferences)getChild(newchildname);
