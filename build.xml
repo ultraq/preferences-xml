@@ -26,6 +26,7 @@
 			</fileset>
 			<!-- JAXB plugins -->
 			<fileset dir="${user.libraries}/jaxb2-basics/dist/" includes="jaxb2-basics-ant-0.6.3.jar"/>
+			<fileset dir="${user.libraries}/jaxb2-value-constructor/" includes="jaxb2-value-constructor-3.0.jar"/>
 			<fileset dir="${user.libraries}/xmlelementwrapper/" includes="xew-1.3-132_jdk6-jaxb2.2.jar"/>
 		</classpath>
 	</taskdef>
@@ -36,6 +37,7 @@
 			<arg value="-Xxew"/>
 			<arg value="-instantiate lazy"/>
 			<arg value="-delete"/>
+			<arg value="-Xvalue-constructor"/>
 		</xjc>
 
 		<replace file="Java/nz/net/ultraq/preferences/xml/XMLNode.java">

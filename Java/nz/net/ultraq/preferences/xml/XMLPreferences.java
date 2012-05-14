@@ -29,8 +29,8 @@ class XMLPreferences extends AbstractPreferences {
 //	private static final String SCHEMA_URL       = "http://schemas.ultraq.net.nz/xml/preferences.xsd";
 
 	// JAXB representation of the preferences
-	private final XMLRoot root;
-	private XMLNode preferences;
+	private final XMLNode preferences;
+	private final boolean root;
 	private File preferencesfile;
 
 	/**
@@ -51,8 +51,10 @@ class XMLPreferences extends AbstractPreferences {
 
 		// Check if a preferences file already exists (reading from that one if
 		// it does), create one otherwise
-		preferencesfile = new File(PREFERENCES_DIR + "/" + username + ".xml");
-		root = preferencesfile.exists() ? readFromXML() : new XMLRoot();
+		preferencesfile = new File(PREFERENCES_DIR + "/" +
+				(username == null ? "application-preferences" : "user-preferences-" + username) + ".xml");
+		preferences = preferencesfile.exists() ? readFromXML() : new XMLRoot();
+		root = true;
 	}
 
 	/**
@@ -64,7 +66,12 @@ class XMLPreferences extends AbstractPreferences {
 	private XMLPreferences(XMLPreferences parent, String name) {
 
 		super(parent, name);
-		this.root = null;
+		preferences = new XMLNode();
+		preferences.setName(name);
+		root = false;
+
+		// Link
+		parent.preferences.getNodes().add(preferences);
 	}
 
 	/**
@@ -97,7 +104,7 @@ class XMLPreferences extends AbstractPreferences {
 	public void flush() throws BackingStoreException {
 
 		// Flush cannot be called on a child node
-		if (root == null) {
+		if (!root) {
 			throw new UnsupportedOperationException("flush() cannot be called on a child node.");
 		}
 
@@ -203,7 +210,7 @@ class XMLPreferences extends AbstractPreferences {
 	public void sync() throws BackingStoreException {
 
 		// Sync cannot be called on a child node
-		if (root == null) {
+		if (!root) {
 			throw new UnsupportedOperationException("sync() cannot be called on a child node.");
 		}
 
@@ -264,6 +271,7 @@ class XMLPreferences extends AbstractPreferences {
 		XMLWriter<XMLRoot> xmlwriter = new XMLWriter<XMLRoot>(XMLRoot.class);
 //		xmlwriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL);
 		xmlwriter.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
-		xmlwriter.writeXMLData(root, preferencesfile);
+		xmlwriter.setFormatOutput(true);
+		xmlwriter.writeXMLData((XMLRoot)preferences, preferencesfile);
 	}
 }
