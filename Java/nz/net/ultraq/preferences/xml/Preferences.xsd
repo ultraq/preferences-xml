@@ -6,7 +6,8 @@
 
 <xsd:schema targetNamespace="http://www.ultraq.net.nz/preferences/xml"
 	xmlns="http://www.ultraq.net.nz/preferences/xml"
-	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="1.0"
+	xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:extensionBindingPrefixes="ci" jxb:version="1.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
 	<!-- Map schema to custom package -->
@@ -23,6 +24,23 @@
 		<xsd:annotation>
 			<xsd:appinfo>
 				<jxb:class name="XMLRoot"/>
+				<ci:code>
+	/**
+	 * Default constructor. 
+	 */
+	public XMLRoot() {
+	}
+
+	/**
+	 * Constructor, set the name of this node.
+	 * 
+	 * @param name
+	 */
+	public XMLRoot(String name) {
+
+		super(name);
+	}
+				</ci:code>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:complexType>
@@ -42,6 +60,23 @@
 		<xsd:annotation>
 			<xsd:appinfo>
 				<jxb:class name="XMLNode"/>
+				<ci:code>
+	/**
+	 * Default constructor. 
+	 */
+	public XMLNode() {
+	}
+
+	/**
+	 * Constructor, set the name of this node.
+	 * 
+	 * @param name
+	 */
+	public XMLNode(String name) {
+
+		this.name = name;
+	}
+				</ci:code>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:sequence>
@@ -61,6 +96,25 @@
 		<xsd:annotation>
 			<xsd:appinfo>
 				<jxb:class name="XMLEntry"/>
+				<ci:code>
+	/**
+	 * Default constructor.
+	 */
+	public XMLEntry() {
+	}
+
+	/**
+	 * Constructor, set the key and value of the entry.
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public XMLEntry(String key, String value) {
+
+		this.key = key;
+		this.value = value;
+	}
+				</ci:code>
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:sequence>

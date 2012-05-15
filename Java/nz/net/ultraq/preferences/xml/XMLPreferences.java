@@ -53,25 +53,28 @@ class XMLPreferences extends AbstractPreferences {
 		// it does), create one otherwise
 		preferencesfile = new File(PREFERENCES_DIR + "/" +
 				(username == null ? "application-preferences" : "user-preferences-" + username) + ".xml");
-		preferences = preferencesfile.exists() ? readFromXML() : new XMLRoot();
+		preferences = preferencesfile.exists() ? readFromXML() : new XMLRoot("");
 		root = true;
 	}
 
 	/**
 	 * Constructor, creates a new child preference node.
 	 * 
-	 * @param parent Parent node of this child.
-	 * @param name	 Name of this child node.
+	 * @param parent	  Parent node.
+	 * @param preferences Preferences of this node.
+	 * @param name		  Name of this node.
 	 */
-	private XMLPreferences(XMLPreferences parent, String name) {
+	private XMLPreferences(XMLPreferences parent, XMLNode preferences, String name) {
 
 		super(parent, name);
-		preferences = new XMLNode();
-		preferences.setName(name);
+		if (preferences != null) {
+			this.preferences = preferences;
+		}
+		else {
+			this.preferences = new XMLNode(name);
+			parent.preferences.getNodes().add(this.preferences);
+		}
 		root = false;
-
-		// Link
-		parent.preferences.getNodes().add(preferences);
 	}
 
 	/**
@@ -94,7 +97,12 @@ class XMLPreferences extends AbstractPreferences {
 	@Override
 	protected XMLPreferences childSpi(String name) {
 
-		return new XMLPreferences(this, name);
+		for (XMLNode node: preferences.getNodes()) {
+			if (node.getName().equals(name)) {
+				return new XMLPreferences(this, node, name);
+			}
+		}
+		return new XMLPreferences(this, null, name);
 	}
 
 	/**
