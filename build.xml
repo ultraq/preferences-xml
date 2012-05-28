@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ========================================= -->
-<!-- Generate JAXB classes for XML Preferences -->
-<!-- ========================================= -->
-
 <project name="Preferences - XML" default="generate">
 	<description>
 		Generates the JAXB classes from the XML schema files in this project.
@@ -11,13 +7,13 @@
 
 	<property name="project.name"      value="Preferences - XML"/>
 	<property name="project.shortname" value="preferences-xml"/>
-	<property name="project.version"   value="1.2"/>
+	<property name="project.version"   value="1.3"/>
 
 	<!-- XJC ant task for generating Java classes from XML -->
 	<taskdef name="xjc" classname="org.jvnet.jaxb2_commons.xjc.XJC2Task">
 		<classpath>
 			<!-- JAXB -->
-			<fileset dir="${user.libraries}/jaxb/lib/">
+			<fileset dir="Libraries">
 				<include name="jaxb-api.jar"/>
 				<include name="jaxb-impl.jar"/>
 				<include name="jaxb-xjc.jar"/>
@@ -25,8 +21,8 @@
 				<include name="jsr173_1.0_api.jar"/>
 			</fileset>
 			<!-- JAXB plugins -->
-			<fileset dir="${user.libraries}/jaxb2-basics/dist/" includes="jaxb2-basics-ant-0.6.3.jar"/>
-			<fileset dir="${user.libraries}/xmlelementwrapper/" includes="xew-1.3-132_jdk6-jaxb2.2.jar"/>
+			<fileset dir="Libraries" includes="jaxb2-basics-ant-0.6.3.jar"/>
+			<fileset dir="Libraries" includes="xew-1.3-132_jdk6-jaxb2.2.jar"/>
 		</classpath>
 	</taskdef>
 
@@ -65,7 +61,7 @@
 	<target name="jar">
 		<jar basedir="Classes" destfile="${project.shortname}-${project.version}.jar">
 			<manifest>
-				<attribute name="Class-Path" value="preferences-1.2.jar jax-utilities-1.2.jar"/>
+				<attribute name="Class-Path" value="jaxb-utilities-1.2.jar"/>
 				<attribute name="Implementation-Title" value="${project.name}"/>
 				<attribute name="Implementation-Version" value="${project.version}"/>
 				<attribute name="Implementation-Vendor" value="Emanuel Rabina"/>
