@@ -25,4 +25,5 @@ Usage
 
 Just put the JAR somewhere in your project classpath and it should be picked-up
 and used by Java when you access the Java Preferences API.  Preferences will be
-written to files inside a `.preferences` sub-directory of your project.
+written to files inside a `.preferences` sub-directory of your project: 1 for
+the system preferences, and 1 for every user account that uses the program.
