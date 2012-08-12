@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- =========================== -->
+<!-- XML Preferences file schema -->
+<!-- =========================== -->
+
+<xsd:schema targetNamespace="http://www.ultraq.net.nz/preferences/xml"
+	xmlns="http://www.ultraq.net.nz/preferences/xml"
+	xmlns:ci="http://jaxb.dev.java.net/plugin/code-injector"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:extensionBindingPrefixes="ci" jxb:version="1.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<!-- Map schema to custom package -->
+	<xsd:annotation>
+		<xsd:appinfo>
+			<jxb:schemaBindings>
+				<jxb:package name="nz.net.ultraq.preferences.xml"/>
+			</jxb:schemaBindings>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+	<!-- Root element -->
+	<xsd:element name="preferences">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<jxb:class name="XMLRoot"/>
+				<ci:code>
+	/**
+	 * Default constructor. 
+	 */
+	public XMLRoot() {
+	}
+
+	/**
+	 * Constructor, set the name of this node.
+	 * 
+	 * @param name
+	 */
+	public XMLRoot(String name) {
+
+		super(name);
+	}
+				</ci:code>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Node"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Preferences node, a list of preferences and/or a parent of other preference nodes -->
+	<xsd:complexType name="Nodes">
+		<xsd:sequence>
+			<xsd:element name="node" type="Node" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Node">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<jxb:class name="XMLNode"/>
+				<ci:code>
+	/**
+	 * Default constructor. 
+	 */
+	public XMLNode() {
+	}
+
+	/**
+	 * Constructor, set the name of this node.
+	 * 
+	 * @param name
+	 */
+	public XMLNode(String name) {
+
+		this.name = name;
+	}
+
+	/**
+	 * Compares preferences nodes.  Nodes are equal if they share the same
+	 * 'package' name.
+	 * 
+	 * @return &lt;tt&gt;true&lt;/tt&gt; if both objects share the same package name,
+	 * 		   &lt;tt&gt;false&lt;/tt&gt; otherwise.
+	 */
+	@Override
+	public boolean equals(Object o) {
+
+		return o instanceof XMLNode &amp;&amp; ((XMLNode)o).name.equals(name);
+	}
+				</ci:code>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="entries" type="Entries" minOccurs="0"/>
+			<xsd:element name="nodes" type="Nodes" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+
+	<!-- Preferences map, contains key/value pairs -->
+	<xsd:complexType name="Entries">
+		<xsd:sequence>
+			<xsd:element name="entry" type="Entry" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Entry">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<jxb:class name="XMLEntry"/>
+				<ci:code>
+	/**
+	 * Default constructor.
+	 */
+	public XMLEntry() {
+	}
+
+	/**
+	 * Constructor, set the key and value of the entry.
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public XMLEntry(String key, String value) {
+
+		this.key = key;
+		this.value = value;
+	}
+				</ci:code>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:attribute name="key" type="xsd:string"/>
+	</xsd:complexType>
+
+</xsd:schema>

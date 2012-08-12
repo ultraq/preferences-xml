@@ -13,5 +13,7 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
+		<nature>org.springsource.ide.eclipse.gradle.core.nature</nature>
 	</natures>
 </projectDescription>
