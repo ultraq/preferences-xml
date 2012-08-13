@@ -9,7 +9,7 @@
 
 apply plugin: 'java'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/java-support.gradle'
-apply from: 'file:///D:/Scanner/Programming/Gradle Support/jaxb.gradle'
+apply from: 'https://raw.github.com/ultraq/gradle-support/master/jaxb.gradle'
 apply plugin: 'maven'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/maven-support.gradle'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/bundle.gradle'
@@ -38,5 +38,17 @@ dependencies {
 	compile 'nz.net.ultraq.jaxb:jaxb-utilities:1.2.1'
 }
 
-// Make use of the XML Element Wrapper and Code Injection plugins.
-xjc.args = ['-Xxew', '-instantiate lazy', '-delete', '-Xinject-code']
+// Configure the XJC task
+xjc.produces = [
+	'**/ObjectFactory.java',
+	'**/package-info.java',
+	'**/XMLEntry.java',
+	'**/XMLNode.java',
+	'**/XMLRoot.java'
+]
+xjc.args = [
+	'-Xxew',
+	'-instantiate lazy',
+	'-delete',
+	'-Xinject-code'
+]
