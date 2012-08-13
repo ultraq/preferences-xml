@@ -29,7 +29,7 @@ Add a dependency to your project with the following co-ordinates:
 
  - GroupId: `nz.net.ultraq.preferences`
  - ArtifactId: `preferences-xml`
- - Version: `1.2.1`
+ - Version: `1.2.2`
 
 
 Usage
@@ -39,3 +39,19 @@ Once the JAR is in your project classpath it should be picked-up and used by
 Java when you access the Java Preferences API.  Preferences will be written to
 files inside a `.preferences` sub-directory of your project: 1 for the system
 preferences, and 1 for every user account that uses the program.
+
+
+Changelog
+---------
+
+### 1.2.2
+ - Switched from Ant to Gradle as a build tool.
+ - Made project available from Maven Central.  Maven co-ordinates added to the
+   [Installation](#installation) section.
+
+### 1.2.1
+ - Added JARs needed for generating Java class files from the schema.
+
+### 1.2
+ - Initial GitHub version.
+

@@ -20,7 +20,7 @@ project.sourceCompatibility = '1.6'
 
 project.group    = 'nz.net.ultraq.preferences'
 project.artifact = 'preferences-xml'
-project.version  = '1.2.1'
+project.version  = '1.2.2'
 project.website  = "http://www.ultraq.net.nz/projects/${project.artifact}/"
 project.year     = '2007'
 
