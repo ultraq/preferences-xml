@@ -7,6 +7,9 @@ preferences in an XML file, in a subdirectory of a Java program's working
 directory.  Written because of my frustration that the Windows implementation of
 the Java Preferences API that comes with the JRE uses the registry.
 
+ - Current version: 1.2.2
+ - Release date: 13 August 2012
+
 
 Requirements
 ------------
