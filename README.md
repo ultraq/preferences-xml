@@ -24,7 +24,7 @@ Installation
 ------------
 
 ### Standalone distribution
-Download a copy of of the pre-compiled JAR from [the Downloads section](preferences-xml/downloads)
+Copy the JAR from [the latest download bundle](http://www.ultraq.net.nz/downloads/programming/Preferences - XML 1.2.2.zip),
 or build the project from the source code here on GitHub.
 
 ### For Maven and Maven-compatible dependency managers
