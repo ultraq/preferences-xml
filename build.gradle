@@ -41,7 +41,6 @@ project.year     = '2007'
 
 repositories {
 	flatDir(dirs: 'Libraries')
-	mavenCentral()
 }
 
 dependencies {
