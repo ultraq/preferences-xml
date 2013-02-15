@@ -7,8 +7,8 @@ preferences in an XML file, in a subdirectory of a Java program's working
 directory.  Written because of my frustration that the Windows implementation of
 the Java Preferences API that comes with the JRE uses the registry.
 
- - Current version: 1.2.2
- - Release date: 13 August 2012
+ - Current version: 1.2.3-SNAPSHOT
+ - Release date: ?? ??? 2013
 
 
 Requirements
@@ -32,7 +32,7 @@ Add a dependency to your project with the following co-ordinates:
 
  - GroupId: `nz.net.ultraq.preferences`
  - ArtifactId: `preferences-xml`
- - Version: `1.2.2`
+ - Version: `1.2.3-SNAPSHOT`
 
 
 Usage
@@ -46,6 +46,10 @@ preferences, and 1 for every user account that uses the program.
 
 Changelog
 ---------
+
+### 1.2.3
+ - Project structure reorganization after major fixes to the Gradle build
+   scripts.
 
 ### 1.2.2
  - Switched from Ant to Gradle as a build tool.
