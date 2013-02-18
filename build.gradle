@@ -29,7 +29,7 @@ apply plugin: 'maven'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/maven-support.gradle'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/bundle.gradle'
 
-//project.name        = 'Preferences - XML'
+//project.name      = 'Preferences - XML'
 project.description = 'An implementation of the Java Preferences API (java.util.prefs) to store preferences in an XML file, in a subdirectory of a Java program\'s working directory.'
 project.archivesBaseName = 'preferences-xml'
 project.sourceCompatibility = '1.6'
@@ -48,9 +48,8 @@ dependencies {
 	compile 'nz.net.ultraq.jaxb:jaxb-utilities:1.2.3'
 }
 
-// Configure the XJC task
 xjc {
-	produces = [
+	classes = [
 		'**/ObjectFactory.java',
 		'**/package-info.java',
 		'**/XMLEntry.java',
