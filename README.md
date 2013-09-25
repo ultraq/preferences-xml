@@ -7,7 +7,7 @@ preferences in an XML file, in a subdirectory of a Java program's working
 directory.  Written because of my frustration that the Windows implementation of
 the Java Preferences API that comes with the JRE uses the registry.
 
- - Current version: 1.2.3-SNAPSHOT
+ - Current version: 1.2.3
  - Release date: ?? ??? 2013
 
 
@@ -24,7 +24,7 @@ Installation
 ------------
 
 ### Standalone distribution
-Copy the JAR from [the latest download bundle](http://www.ultraq.net.nz/downloads/programming/Preferences - XML 1.2.2.zip),
+Copy the JAR from [the latest release bundle](https://github.com/ultraq/preferences-xml/releases),
 or build the project from the source code here on GitHub.
 
 ### For Maven and Maven-compatible dependency managers
@@ -32,7 +32,7 @@ Add a dependency to your project with the following co-ordinates:
 
  - GroupId: `nz.net.ultraq.preferences`
  - ArtifactId: `preferences-xml`
- - Version: `1.2.3-SNAPSHOT`
+ - Version: `1.2.3`
 
 
 Usage

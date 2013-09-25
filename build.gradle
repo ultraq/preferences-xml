@@ -23,8 +23,8 @@
  */
 
 apply plugin: 'java'
-apply from: 'https://raw.github.com/ultraq/gradle-support/master/java-support.gradle'
-apply from: 'https://raw.github.com/ultraq/gradle-support/master/jaxb.gradle'
+apply from: 'https://raw.github.com/ultraq/gradle-support/dev/java-support.gradle'
+apply from: 'https://raw.github.com/ultraq/gradle-support/dev/jaxb.gradle'
 apply plugin: 'maven'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/maven-support.gradle'
 apply from: 'https://raw.github.com/ultraq/gradle-support/master/bundle.gradle'
