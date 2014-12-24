@@ -63,3 +63,10 @@ xjc {
 		'-Xinject-code'
 	]
 }
+
+// Disable doclint as it errors on many of the generated files
+if (JavaVersion.current().isJava8Compatible()) {
+	tasks.withType(Javadoc) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+	}
+}
