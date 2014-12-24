@@ -8,14 +8,14 @@ directory.  Written because of my frustration that the Windows implementation of
 the Java Preferences API that comes with the JRE uses the registry.
 
  - Current version: 1.2.3
- - Release date: ?? ??? 2013
+ - Release date: 24 December 2014
 
 
 Requirements
 ------------
 
  - Java 6
- - JAXB 2.2 (2.2.6 and its dependencies included)
+ - JAXB 2.2 (2.2.7 and its dependencies included)
  - [JAXB2 Basics XJC Ant task](http://confluence.highsource.org/display/J2B/JAXB2+Basics+XJC+Ant+Task) (for generating the class files from the XML schema, 0.6.3 included)
  - [XmlElementWrapper](http://www.conspicio.dk/blog/bjarne/jaxb-xmlelementwrapper-plugin) (for generating the class files from the XML schema, included and recompiled for JAXB 2.2)
 
