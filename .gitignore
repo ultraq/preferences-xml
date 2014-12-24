@@ -1,3 +1,14 @@
+
+# Build directories
 /.gradle
 /build
 /Classes
+
+# Eclipse files/directories
+/.settings
+.classpath
+.project
+
+# IntelliJ IDEA files/directories
+/.idea
+*.iml
