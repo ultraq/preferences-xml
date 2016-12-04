@@ -1,5 +1,5 @@
-/*
- * Copyright 2012, Emanuel Rabina (http://www.ultraq.net.nz/)
+/* 
+ * Copyright 2007, Emanuel Rabina (http://www.ultraq.net.nz/)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import java.util.prefs.AbstractPreferences;
 import java.util.prefs.BackingStoreException;
 
 /**
- * Implementation of the <tt>Preferences</tt> class of the Preferences API,
+ * Implementation of the {@code Preferences} class of the Preferences API,
  * stores user and system preferences to XML files within the application
  * directory tree, instead of using user home directories or the Windows
  * registry.

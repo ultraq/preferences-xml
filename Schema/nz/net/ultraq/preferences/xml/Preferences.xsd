@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-   Copyright 2012, Emanuel Rabina (http://www.ultraq.net.nz/)
+   Copyright 2007, Emanuel Rabina (http://www.ultraq.net.nz/)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@
 	<xsd:element name="preferences">
 		<xsd:annotation>
 			<xsd:appinfo>
-				<jxb:class name="XMLRoot"/>
+				<jxb:class name="XmlRoot"/>
 				<ci:code>
 	/**
 	 * Default constructor. 
 	 */
-	public XMLRoot() {
+	public XmlRoot() {
 	}
 
 	/**
@@ -48,7 +48,7 @@
 	 * 
 	 * @param name
 	 */
-	public XMLRoot(String name) {
+	public XmlRoot(String name) {
 
 		super(name);
 	}
@@ -71,12 +71,12 @@
 	<xsd:complexType name="Node">
 		<xsd:annotation>
 			<xsd:appinfo>
-				<jxb:class name="XMLNode"/>
+				<jxb:class name="XmlNode"/>
 				<ci:code>
 	/**
 	 * Default constructor. 
 	 */
-	public XMLNode() {
+	public XmlNode() {
 	}
 
 	/**
@@ -84,7 +84,7 @@
 	 * 
 	 * @param name
 	 */
-	public XMLNode(String name) {
+	public XmlNode(String name) {
 
 		this.name = name;
 	}
@@ -93,13 +93,12 @@
 	 * Compares preferences nodes.  Nodes are equal if they share the same
 	 * 'package' name.
 	 * 
-	 * @return &lt;tt&gt;true&lt;/tt&gt; if both objects share the same package name,
-	 * 		   &lt;tt&gt;false&lt;/tt&gt; otherwise.
+	 * @return {@code true} if both objects share the same package name.
 	 */
 	@Override
 	public boolean equals(Object o) {
 
-		return o instanceof XMLNode &amp;&amp; ((XMLNode)o).name.equals(name);
+		return o instanceof XmlNode &amp;&amp; ((XmlNode)o).name.equals(name);
 	}
 				</ci:code>
 			</xsd:appinfo>
@@ -120,12 +119,12 @@
 	<xsd:complexType name="Entry">
 		<xsd:annotation>
 			<xsd:appinfo>
-				<jxb:class name="XMLEntry"/>
+				<jxb:class name="XmlEntry"/>
 				<ci:code>
 	/**
 	 * Default constructor.
 	 */
-	public XMLEntry() {
+	public XmlEntry() {
 	}
 
 	/**
@@ -134,7 +133,7 @@
 	 * @param key
 	 * @param value
 	 */
-	public XMLEntry(String key, String value) {
+	public XmlEntry(String key, String value) {
 
 		this.key = key;
 		this.value = value;

@@ -1,5 +1,5 @@
-/*
- * Copyright 2012, Emanuel Rabina (http://www.ultraq.net.nz/)
+/* 
+ * Copyright 2007, Emanuel Rabina (http://www.ultraq.net.nz/)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ import java.util.prefs.Preferences;
 import java.util.prefs.PreferencesFactory;
 
 /**
- * Implementation of the <tt>PreferencesFactory</tt> interface of the
- * Preferences API, creates and returns an XML file-based preferences
- * implementation for use with the Preferences API.
+ * Implementation of the {@code PreferencesFactory} interface of the Preferences
+ * API, creates and returns an XML file-based preferences implementation for use
+ * with the Preferences API.
  * 
  * @author Emanuel Rabina
  */
