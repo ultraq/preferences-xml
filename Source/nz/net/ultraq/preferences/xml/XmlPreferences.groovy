@@ -40,7 +40,7 @@ class XmlPreferences extends AbstractPreferences {
 	private static final String SCHEMA_URL             = 'http://schemas.ultraq.net.nz/xml/preferences.xsd'
 
 	// JAXB representation of the preferences
-	private final XMLNode preferences
+	private final XmlNode preferences
 	private final boolean root
 	private File preferencesFile
 
@@ -65,7 +65,7 @@ class XmlPreferences extends AbstractPreferences {
 		preferencesFile = new File(
 			"${PREFERENCES_DIRECTORY}/${(username ? "user-preferences-${username}" : 'application-preferences')}.xml"
 		)
-		preferences = preferencesFile.exists() ? readXml() : new XMLRoot("")
+		preferences = preferencesFile.exists() ? readXml() : new XmlRoot("")
 		root = true
 	}
 
@@ -76,14 +76,14 @@ class XmlPreferences extends AbstractPreferences {
 	 * @param preferences Preferences of this node.
 	 * @param name        Name of this node.
 	 */
-	private XmlPreferences(XmlPreferences parent, XMLNode preferences, String name) {
+	private XmlPreferences(XmlPreferences parent, XmlNode preferences, String name) {
 
 		super(parent, name)
 		if (preferences) {
 			this.preferences = preferences
 		}
 		else {
-			this.preferences = new XMLNode(name)
+			this.preferences = new XmlNode(name)
 			parent.preferences.nodes.add(this.preferences)
 		}
 		root = false
@@ -159,7 +159,7 @@ class XmlPreferences extends AbstractPreferences {
 			entry.value = value
 		}
 		else {
-			preferences.entries.add(new XMLEntry(key, value))
+			preferences.entries.add(new XmlEntry(key, value))
 		}
 	}
 
@@ -168,9 +168,9 @@ class XmlPreferences extends AbstractPreferences {
 	 * 
 	 * @return JAXB object for the XML file root node.
 	 */
-	private synchronized XMLRoot readXml() {
+	private synchronized XmlRoot readXml() {
 
-		def xmlReader = new XmlReader<XMLRoot>(XMLRoot)
+		def xmlReader = new XmlReader<XmlRoot>(XMLRoot)
 		xmlReader.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
 		return xmlReader.read(preferencesFile)
 	}
@@ -216,7 +216,7 @@ class XmlPreferences extends AbstractPreferences {
 	 * 
 	 * @param updateNode The preferences to update existing ones with.
 	 */
-	private void syncFromNode(XMLNode updateNode) {
+	private void syncFromNode(XmlNode updateNode) {
 
 		// Update this node's preferences
 		updateNode.entries.each { node -> put(node.key, node.value) }
@@ -240,7 +240,7 @@ class XmlPreferences extends AbstractPreferences {
 	 */
 	private synchronized void writeXml() {
 
-		def xmlWriter = new XmlWriter<XMLRoot>(XMLRoot)
+		def xmlWriter = new XmlWriter<XmlRoot>(XMLRoot)
 		xmlWriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL)
 		xmlWriter.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA))
 		xmlWriter.setFormatOutput(true);
