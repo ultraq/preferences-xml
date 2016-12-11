@@ -30,8 +30,8 @@ class XmlPreferencesFactory implements PreferencesFactory {
 
 	private static final String username = System.getProperty('user.name').replace(' ', '').toLowerCase()
 
-	@Lazy private static Preferences SYSTEM_ROOT = { new XmlPreferences(username) }()
-	@Lazy private static Preferences USER_ROOT   = { new XmlPreferences(username) }()
+	private static Preferences systemRoot
+	private static Preferences userRoot
 
 	/**
 	 * {@inheritDoc}
@@ -39,7 +39,10 @@ class XmlPreferencesFactory implements PreferencesFactory {
 	@Override
 	synchronized Preferences systemRoot() {
 
-		return SYSTEM_ROOT
+		if (!systemRoot) {
+			systemRoot = new XmlPreferences(null)
+		}
+		return systemRoot
 	}
 
 	/**
@@ -48,6 +51,9 @@ class XmlPreferencesFactory implements PreferencesFactory {
 	@Override
 	synchronized Preferences userRoot() {
 
-		return USER_ROOT
+		if (!userRoot) {
+			userRoot = new XmlPreferences(username)
+		}
+		return userRoot
 	}
 }

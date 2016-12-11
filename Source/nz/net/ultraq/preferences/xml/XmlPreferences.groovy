@@ -35,7 +35,7 @@ class XmlPreferences extends AbstractPreferences {
 	static final String PREFERENCES_DIRECTORY = '.preferences'
 
 	// JAXB/Schema values
-	private static final String XML_PREFERENCES_SCHEMA = 'nz/net/ultraq/preferences/xml/Preferences.xsd'
+//	private static final String XML_PREFERENCES_SCHEMA = 'nz/net/ultraq/preferences/xml/Preferences.xsd'
 	private static final String SCHEMA_NAMESPACE       = 'http://www.ultraq.net.nz/xml/preferences'
 	private static final String SCHEMA_URL             = 'http://schemas.ultraq.net.nz/xml/preferences.xsd'
 
@@ -170,8 +170,8 @@ class XmlPreferences extends AbstractPreferences {
 	 */
 	private synchronized XmlRoot readXml() {
 
-		def xmlReader = new XmlReader<XmlRoot>(XMLRoot)
-		xmlReader.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
+		def xmlReader = new XmlReader<XmlRoot>(XmlRoot)
+//		xmlReader.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
 		return xmlReader.read(preferencesFile)
 	}
 
@@ -240,10 +240,10 @@ class XmlPreferences extends AbstractPreferences {
 	 */
 	private synchronized void writeXml() {
 
-		def xmlWriter = new XmlWriter<XmlRoot>(XMLRoot)
-		xmlWriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL)
-		xmlWriter.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA))
-		xmlWriter.setFormatOutput(true);
+		def xmlWriter = new XmlWriter<XmlRoot>(XmlRoot)
+//		xmlWriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL)
+//		xmlWriter.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
+		xmlWriter.setFormatOutput(true)
 		xmlWriter.write(preferences, preferencesFile)
 	}
 }

@@ -44,6 +44,9 @@ dependencies {
 		'nz.net.ultraq.jaxb:jaxb-utilities:2.0.0-SNAPSHOT',
 		'org.codehaus.groovy:groovy:2.4.7'
 	)
+	testCompile(
+		'junit:junit:4.12'
+	)
 }
 
 xjc {
@@ -69,4 +72,8 @@ if (JavaVersion.current().java8Compatible) {
 			addStringOption('Xdoclint:none', '-quiet')
 		}
 	}
+}
+
+configurations.all {
+	resolutionStrategy.cacheChangingModulesFor(1, 'minutes')
 }

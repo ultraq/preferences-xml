@@ -1,6 +1,7 @@
 
 # Generated
 /.gradle
+/.preferences
 /build
 /Classes
 
