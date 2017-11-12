@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-apply plugin: 'groovy'
-apply plugin: 'maven'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/1.4.1/gradle-support.gradle'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/1.4.1/maven-support.gradle'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/1.4.1/bundle.gradle'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/1.4.1/jaxb.gradle'
+plugins {
+	id 'groovy'
+	id 'maven'
+}
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.0/gradle-support.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.0/maven-support.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.0/bundle.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.0/jaxb.gradle'
 
 //project.name      = 'Preferences - XML'
 project.description = 'An implementation of the Java Preferences API (java.util.prefs) to store preferences in an XML file, in a subdirectory of a Java program\'s working directory'
@@ -40,9 +42,8 @@ dependencies {
 		':xew:1.3.132:jdk6_jaxb2.2'
 	)
 	compile(
-		'nz.net.ultraq.groovy:functional-aliases-extension:1.0.0-SNAPSHOT',
 		'nz.net.ultraq.jaxb:jaxb-utilities:2.0.0-SNAPSHOT',
-		'org.codehaus.groovy:groovy:2.4.7'
+		'org.codehaus.groovy:groovy:2.4.12'
 	)
 	testCompile(
 		'junit:junit:4.12'
