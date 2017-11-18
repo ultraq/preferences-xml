@@ -1,12 +1,5 @@
-
-# Generated
 /.gradle
-/build
-/Classes
-
-# IDEs
 /.idea
-/.settings
-.classpath
-.project
+/.preferences
+/build
 *.iml

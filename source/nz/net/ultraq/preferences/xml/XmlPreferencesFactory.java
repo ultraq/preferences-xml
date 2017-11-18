@@ -40,7 +40,7 @@ public class XmlPreferencesFactory implements PreferencesFactory {
 	public synchronized Preferences systemRoot() {
 
 		if (SYSTEM_ROOT == null) {
-			SYSTEM_ROOT = new XmlPreferences(username);
+			SYSTEM_ROOT = new XmlPreferences(null);
 		}
 		return SYSTEM_ROOT;
 	}

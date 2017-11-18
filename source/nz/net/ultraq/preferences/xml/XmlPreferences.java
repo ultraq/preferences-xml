@@ -68,7 +68,7 @@ class XmlPreferences extends AbstractPreferences {
 		// it does), create one otherwise
 		preferencesfile = new File(PREFERENCES_DIR + "/" +
 				(username == null ? "application-preferences" : "user-preferences-" + username) + ".xml");
-		preferences = preferencesfile.exists() ? readFromXML() : new XmlRoot("");
+		preferences = preferencesfile.exists() ? readFromXml() : new XmlRoot("");
 		root = true;
 	}
 
@@ -133,7 +133,7 @@ class XmlPreferences extends AbstractPreferences {
 
 		try {
 			// Write the entire preferences tree to an XML file
-			writeToXML();
+			writeToXml();
 		}
 		catch (XMLException ex) {
 			throw new BackingStoreException(ex);
@@ -196,9 +196,9 @@ class XmlPreferences extends AbstractPreferences {
 	 * @return JAXB object for the XML file root node.
 	 * @throws XMLException
 	 */
-	private synchronized XmlRoot readFromXML() throws XMLException {
+	private synchronized XmlRoot readFromXml() throws XMLException {
 
-		XMLReader<XmlRoot> xmlreader = new XMLReader<XmlRoot>(XmlRoot.class);
+		XMLReader<XmlRoot> xmlreader = new XMLReader<>(XmlRoot.class);
 		xmlreader.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
 		return xmlreader.readXMLData(preferencesfile);
 	}
@@ -239,7 +239,7 @@ class XmlPreferences extends AbstractPreferences {
 
 		try {
 			// Update from the XML file
-			XmlRoot fileroot = readFromXML();
+			XmlRoot fileroot = readFromXml();
 			for (XmlNode filepreferences: fileroot.getNodes()) {
 				String filechildname = filepreferences.getName();
 				XmlPreferences child = (XmlPreferences)getChild(filechildname);
@@ -247,7 +247,7 @@ class XmlPreferences extends AbstractPreferences {
 			}
 
 			// Write to XML file
-			writeToXML();
+			writeToXml();
 		}
 		catch (XMLException ex) {
 			throw new BackingStoreException(ex);
@@ -289,9 +289,9 @@ class XmlPreferences extends AbstractPreferences {
 	 * 
 	 * @throws XMLException
 	 */
-	private synchronized void writeToXML() throws XMLException {
+	private synchronized void writeToXml() throws XMLException {
 
-		XMLWriter<XmlRoot> xmlwriter = new XMLWriter<XmlRoot>(XmlRoot.class);
+		XMLWriter<XmlRoot> xmlwriter = new XMLWriter<>(XmlRoot.class);
 //		xmlwriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL);
 		xmlwriter.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
 		xmlwriter.setFormatOutput(true);

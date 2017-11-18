@@ -39,8 +39,8 @@ files inside a `.preferences` sub-directory of your project: 1 for the system
 preferences, and 1 for every user account that uses the program.
 
 
-Shout out
----------
+Shout outs
+----------
 
  - [JAXB2 Basics XJC Ant task](http://confluence.highsource.org/display/J2B/JAXB2+Basics+XJC+Ant+Task) (for generating the class files from the XML schema, 0.6.3 included)
  - [XmlElementWrapper](http://www.conspicio.dk/blog/bjarne/jaxb-xmlelementwrapper-plugin) (for generating the class files from the XML schema, included and recompiled for JAXB 2.2)

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: 'groovy'
+apply plugin: 'java'
 apply plugin: 'maven'
 apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.0/gradle-support.gradle'
 apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.0/maven-support.gradle'
@@ -31,6 +31,14 @@ project.artifact = 'preferences-xml'
 project.version  = '1.3.0-SNAPSHOT'
 project.year     = '2007'
 
+sourceSets {
+	main {
+		resources {
+			srcDir 'schema'
+		}
+	}
+}
+
 repositories {
 	flatDir(dirs: 'libraries')
 }
@@ -41,6 +49,9 @@ dependencies {
 	)
 	compile(
 		'nz.net.ultraq.jaxb:jaxb-utilities:1.2.6'
+	)
+	testCompile(
+		'junit:junit:4.12'
 	)
 }
 
