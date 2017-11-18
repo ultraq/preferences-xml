@@ -19,6 +19,7 @@ package nz.net.ultraq.preferences.xml.tests;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.Assume.*;
 
 import java.io.File;
 import java.util.prefs.BackingStoreException;
@@ -36,6 +37,8 @@ public class XmlPreferences {
 	 */
 	@BeforeClass
 	public static void setup() {
+
+		assumeFalse(Boolean.parseBoolean(System.getenv("CI")));
 
 		File preferencesDir = new File(".preferences");
 		for (File file: preferencesDir.listFiles()) {
