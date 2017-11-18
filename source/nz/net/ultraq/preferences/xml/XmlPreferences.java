@@ -46,7 +46,7 @@ class XmlPreferences extends AbstractPreferences {
 	// JAXB representation of the preferences
 	private final XmlNode preferences;
 	private final boolean root;
-	private File preferencesfile;
+	private File preferencesFile;
 
 	/**
 	 * Constructor, creates a new top-level preference node.
@@ -59,16 +59,16 @@ class XmlPreferences extends AbstractPreferences {
 		super(null, "");
 
 		// Ensure preferences directory exists
-		File preferencesdir = new File(PREFERENCES_DIR);
-		if (!preferencesdir.exists()) {
-			preferencesdir.mkdir();
+		File preferencesDir = new File(PREFERENCES_DIR);
+		if (!preferencesDir.exists()) {
+			preferencesDir.mkdir();
 		}
 
 		// Check if a preferences file already exists (reading from that one if
 		// it does), create one otherwise
-		preferencesfile = new File(PREFERENCES_DIR + "/" +
+		preferencesFile = new File(PREFERENCES_DIR + "/" +
 				(username == null ? "application-preferences" : "user-preferences-" + username) + ".xml");
-		preferences = preferencesfile.exists() ? readFromXml() : new XmlRoot("");
+		preferences = preferencesFile.exists() ? readFromXml() : new XmlRoot("");
 		root = true;
 	}
 
@@ -99,11 +99,11 @@ class XmlPreferences extends AbstractPreferences {
 	protected String[] childrenNamesSpi() {
 
 		List<XmlNode> nodes = preferences.getNodes();
-		String[] childrennames = new String[nodes.size()];
-		for (int i = 0; i < childrennames.length; i++) {
-			childrennames[i] = nodes.get(i).getName();
+		String[] childrenNames = new String[nodes.size()];
+		for (int i = 0; i < childrenNames.length; i++) {
+			childrenNames[i] = nodes.get(i).getName();
 		}
-		return childrennames;
+		return childrenNames;
 	}
 
 	/**
@@ -198,9 +198,9 @@ class XmlPreferences extends AbstractPreferences {
 	 */
 	private synchronized XmlRoot readFromXml() throws XMLException {
 
-		XMLReader<XmlRoot> xmlreader = new XMLReader<>(XmlRoot.class);
-		xmlreader.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
-		return xmlreader.readXMLData(preferencesfile);
+		XMLReader<XmlRoot> xmlReader = new XMLReader<>(XmlRoot.class);
+		xmlReader.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
+		return xmlReader.readXMLData(preferencesFile);
 	}
 
 	/**
@@ -239,10 +239,10 @@ class XmlPreferences extends AbstractPreferences {
 
 		try {
 			// Update from the XML file
-			XmlRoot fileroot = readFromXml();
-			for (XmlNode filepreferences: fileroot.getNodes()) {
-				String filechildname = filepreferences.getName();
-				XmlPreferences child = (XmlPreferences)getChild(filechildname);
+			XmlRoot fileRoot = readFromXml();
+			for (XmlNode filepreferences: fileRoot.getNodes()) {
+				String fileChildName = filepreferences.getName();
+				XmlPreferences child = (XmlPreferences)getChild(fileChildName);
 				child.sync(filepreferences);
 			}
 
@@ -258,21 +258,21 @@ class XmlPreferences extends AbstractPreferences {
 	 * Recursively update this node, and it's children, with the given
 	 * preferences.
 	 * 
-	 * @param updatepreferences The preferences to update existing ones with.
+	 * @param updatePreferences The preferences to update existing ones with.
 	 * @throws BackingStoreException
 	 */
-	private void sync(XmlNode updatepreferences) throws BackingStoreException {
+	private void sync(XmlNode updatePreferences) throws BackingStoreException {
 
 		// Update this node's preferences
-		for (XmlEntry updatepreference: updatepreferences.getEntries()) {
-			put(updatepreference.getKey(), updatepreference.getValue());
+		for (XmlEntry updatePreference: updatePreferences.getEntries()) {
+			put(updatePreference.getKey(), updatePreference.getValue());
 		}
 
 		// Update children
-		List<XmlNode> newpreferenceslist = updatepreferences.getNodes();
-		for (XmlNode newpreferences: newpreferenceslist) {
-			String newchildname = newpreferences.getName();
-			XmlPreferences child = (XmlPreferences)getChild(newchildname);
+		List<XmlNode> newPreferencesList = updatePreferences.getNodes();
+		for (XmlNode newpreferences: newPreferencesList) {
+			String newChildName = newpreferences.getName();
+			XmlPreferences child = (XmlPreferences)getChild(newChildName);
 			child.sync(newpreferences);
 		}
 	}
@@ -291,10 +291,10 @@ class XmlPreferences extends AbstractPreferences {
 	 */
 	private synchronized void writeToXml() throws XMLException {
 
-		XMLWriter<XmlRoot> xmlwriter = new XMLWriter<>(XmlRoot.class);
+		XMLWriter<XmlRoot> xmlWriter = new XMLWriter<>(XmlRoot.class);
 //		xmlwriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL);
-		xmlwriter.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
-		xmlwriter.setFormatOutput(true);
-		xmlwriter.writeXMLData((XmlRoot)preferences, preferencesfile);
+		xmlWriter.addValidatingSchema(getClass().getClassLoader().getResourceAsStream(XML_PREFERENCES_SCHEMA));
+		xmlWriter.setFormatOutput(true);
+		xmlWriter.writeXMLData((XmlRoot)preferences, preferencesFile);
 	}
 }
