@@ -2,12 +2,8 @@
 Changelog
 =========
 
-### 2.0.0
- - Project rewritten in Groovy
- - Minimum Java version upped to 8
-
-### 1.2.3
- - Project structure reorganization after major fixes to the Gradle build
+### 1.3.0
+ - Project structure reorganization after major updates to the Gradle build
    scripts.
 
 ### 1.2.2

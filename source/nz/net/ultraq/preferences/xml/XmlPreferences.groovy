@@ -40,7 +40,7 @@ class XmlPreferences extends AbstractPreferences {
 	private static final String SCHEMA_URL             = 'http://schemas.ultraq.net.nz/xml/preferences.xsd'
 
 	// JAXB representation of the preferences
-	private final XmlNode preferences
+	private final XmlRoot preferences
 	private final boolean root
 	private File preferencesFile
 

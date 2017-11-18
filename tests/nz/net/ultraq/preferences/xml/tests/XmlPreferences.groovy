@@ -16,8 +16,11 @@
 
 package nz.net.ultraq.preferences.xml.tests
 
+import org.junit.BeforeClass
 import org.junit.Test
+import static org.junit.Assume.*
 
+import java.util.prefs.BackingStoreException
 import java.util.prefs.Preferences
 
 /**
@@ -28,14 +31,46 @@ import java.util.prefs.Preferences
 class XmlPreferences {
 
 	/**
-	 * 
+	 * Test setup, clear everything out.
+	 */
+	@BeforeClass
+	static void setup() {
+
+		assumeFalse(Boolean.parseBoolean(System.getenv("CI")))
+
+		File preferencesDir = new File(".preferences")
+		if (preferencesDir.exists()) {
+			for (File file: preferencesDir.listFiles()) {
+				file.delete()
+			}
+			preferencesDir.delete()
+		}
+	}
+
+	/**
+	 * Creates a system-wide preferences file.
 	 */
 	@Test
-	void createDirectory() {
+	void createSystemPreferences() throws BackingStoreException {
 
-		def preferences = Preferences.systemRoot()
+		Preferences preferences = Preferences.systemRoot()
 		preferences.flush()
 
-		assert new File('.preferences/application-preferences.xml').exists()
+		File preferencesFile = new File(".preferences/application-preferences.xml")
+		assert preferencesFile.exists()
+	}
+
+	/**
+	 * Creates a user-specific preferences file.
+	 */
+	@Test
+	void createUserPreferences() throws BackingStoreException {
+
+		String username = System.getProperty("user.name").replace(" ", "").toLowerCase()
+		Preferences preferences = Preferences.userRoot()
+		preferences.flush()
+
+		File preferencesFile = new File(".preferences/user-preferences-" + username + ".xml")
+		assert preferencesFile.exists()
 	}
 }
