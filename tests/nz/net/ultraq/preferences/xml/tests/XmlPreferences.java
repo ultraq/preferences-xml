@@ -41,10 +41,12 @@ public class XmlPreferences {
 		assumeFalse(Boolean.parseBoolean(System.getenv("CI")));
 
 		File preferencesDir = new File(".preferences");
-		for (File file: preferencesDir.listFiles()) {
-			file.delete();
+		if (preferencesDir.exists()) {
+			for (File file: preferencesDir.listFiles()) {
+				file.delete();
+			}
+			preferencesDir.delete();
 		}
-		preferencesDir.delete();
 	}
 
 	/**

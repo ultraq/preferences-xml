@@ -5,3 +5,5 @@ jdk:
 # No need to run tasks for dependencies
 install:
  - true
+
+after_success: gradle cobertura coveralls
