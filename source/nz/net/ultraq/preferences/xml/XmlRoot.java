@@ -35,15 +35,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "preferences")
-public class XMLRoot
-    extends XMLNode
+public class XmlRoot
+    extends XmlNode
 {
 
     
 	/**
 	 * Default constructor. 
 	 */
-	public XMLRoot() {
+	public XmlRoot() {
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class XMLRoot
 	 * 
 	 * @param name
 	 */
-	public XMLRoot(String name) {
+	public XmlRoot(String name) {
 
 		super(name);
 	}

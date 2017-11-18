@@ -26,7 +26,7 @@ import java.util.prefs.PreferencesFactory;
  * 
  * @author Emanuel Rabina
  */
-public class XMLPreferencesFactory implements PreferencesFactory {
+public class XmlPreferencesFactory implements PreferencesFactory {
 
 	private static final String username = System.getProperty("user.name").replace(" ", "").toLowerCase();
 
@@ -40,7 +40,7 @@ public class XMLPreferencesFactory implements PreferencesFactory {
 	public synchronized Preferences systemRoot() {
 
 		if (SYSTEM_ROOT == null) {
-			SYSTEM_ROOT = new XMLPreferences(username);
+			SYSTEM_ROOT = new XmlPreferences(username);
 		}
 		return SYSTEM_ROOT;
 	}
@@ -52,7 +52,7 @@ public class XMLPreferencesFactory implements PreferencesFactory {
 	public synchronized Preferences userRoot() {
 
 		if (USER_ROOT == null) {
-			USER_ROOT = new XMLPreferences(username);
+			USER_ROOT = new XmlPreferences(username);
 		}
 		return USER_ROOT;
 	}

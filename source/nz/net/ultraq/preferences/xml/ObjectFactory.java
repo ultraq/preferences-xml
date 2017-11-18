@@ -37,27 +37,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link XMLRoot }
+     * Create an instance of {@link XmlRoot }
      * 
      */
-    public XMLRoot createXMLRoot() {
-        return new XMLRoot();
+    public XmlRoot createXMLRoot() {
+        return new XmlRoot();
     }
 
     /**
-     * Create an instance of {@link XMLEntry }
+     * Create an instance of {@link XmlEntry }
      * 
      */
-    public XMLEntry createXMLEntry() {
-        return new XMLEntry();
+    public XmlEntry createXMLEntry() {
+        return new XmlEntry();
     }
 
     /**
-     * Create an instance of {@link XMLNode }
+     * Create an instance of {@link XmlNode }
      * 
      */
-    public XMLNode createXMLNode() {
-        return new XMLNode();
+    public XmlNode createXMLNode() {
+        return new XmlNode();
     }
 
 }

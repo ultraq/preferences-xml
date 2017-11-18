@@ -46,18 +46,18 @@ import javax.xml.bind.annotation.XmlType;
     "nodes"
 })
 @XmlSeeAlso({
-    XMLRoot.class
+    XmlRoot.class
 })
-public class XMLNode {
+public class XmlNode {
 
     @XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlElementWrapper(name = "entries")
     @XmlElement(name = "entry")
-    protected List<XMLEntry> entries;
+    protected List<XmlEntry> entries;
     @XmlElementWrapper(name = "nodes")
     @XmlElement(name = "node")
-    protected List<XMLNode> nodes;
+    protected List<XmlNode> nodes;
 
     /**
      * Gets the value of the name property.
@@ -83,16 +83,16 @@ public class XMLNode {
         this.name = value;
     }
 
-    public List<XMLEntry> getEntries() {
+    public List<XmlEntry> getEntries() {
         if (entries == null) {
-            entries = new ArrayList<XMLEntry>();
+            entries = new ArrayList<XmlEntry>();
         }
         return entries;
     }
 
-    public List<XMLNode> getNodes() {
+    public List<XmlNode> getNodes() {
         if (nodes == null) {
-            nodes = new ArrayList<XMLNode>();
+            nodes = new ArrayList<XmlNode>();
         }
         return nodes;
     }
@@ -100,7 +100,7 @@ public class XMLNode {
 	/**
 	 * Default constructor. 
 	 */
-	public XMLNode() {
+	public XmlNode() {
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class XMLNode {
 	 * 
 	 * @param name
 	 */
-	public XMLNode(String name) {
+	public XmlNode(String name) {
 
 		this.name = name;
 	}
@@ -123,7 +123,7 @@ public class XMLNode {
 	@Override
 	public boolean equals(Object o) {
 
-		return o instanceof XMLNode && ((XMLNode)o).name.equals(name);
+		return o instanceof XmlNode && ((XmlNode)o).name.equals(name);
 	}
 				
 }

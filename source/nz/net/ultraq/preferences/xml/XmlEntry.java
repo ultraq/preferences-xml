@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Entry", propOrder = {
     "value"
 })
-public class XMLEntry {
+public class XmlEntry {
 
     @XmlElement(required = true)
     protected String value;
@@ -97,7 +97,7 @@ public class XMLEntry {
 	/**
 	 * Default constructor.
 	 */
-	public XMLEntry() {
+	public XmlEntry() {
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class XMLEntry {
 	 * @param key
 	 * @param value
 	 */
-	public XMLEntry(String key, String value) {
+	public XmlEntry(String key, String value) {
 
 		this.key = key;
 		this.value = value;
