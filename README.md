@@ -20,10 +20,12 @@ Installation
 Minimum of Java 8 required.
 
 ### Standalone distribution
+
 Copy the JAR from [the latest release bundle](https://github.com/ultraq/preferences-xml/releases),
 or build the project from the source code here on GitHub.
 
 ### For Maven and Maven-compatible dependency managers
+
 Add a dependency to your project with the following co-ordinates:
 
  - GroupId: `nz.net.ultraq.preferences`

@@ -39,7 +39,7 @@ class XmlPreferences extends AbstractPreferences {
 	public static final String PREFERENCES_DIR = ".preferences";
 
 	// JAXB/Schema values
-	private static final String XML_PREFERENCES_SCHEMA  = "nz/net/ultraq/preferences/xml/Preferences.xsd";
+	private static final String XML_PREFERENCES_SCHEMA = "nz/net/ultraq/preferences/xml/Preferences.xsd";
 //	private static final String SCHEMA_NAMESPACE = "http://www.ultraq.net.nz/xml/preferences";
 //	private static final String SCHEMA_URL       = "http://schemas.ultraq.net.nz/xml/preferences.xsd";
 
