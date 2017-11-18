@@ -35,14 +35,14 @@ class XmlPreferences extends AbstractPreferences {
 	static final String PREFERENCES_DIRECTORY = '.preferences'
 
 	// JAXB/Schema values
-//	private static final String XML_PREFERENCES_SCHEMA = 'nz/net/ultraq/preferences/xml/Preferences.xsd'
-	private static final String SCHEMA_NAMESPACE       = 'http://www.ultraq.net.nz/xml/preferences'
-	private static final String SCHEMA_URL             = 'http://schemas.ultraq.net.nz/xml/preferences.xsd'
+	private static final String XML_PREFERENCES_SCHEMA = 'nz/net/ultraq/preferences/xml/Preferences.xsd'
+//	private static final String SCHEMA_NAMESPACE       = 'http://www.ultraq.net.nz/xml/preferences'
+//	private static final String SCHEMA_URL             = 'http://schemas.ultraq.net.nz/xml/preferences.xsd'
 
 	// JAXB representation of the preferences
-	private final XmlRoot preferences
+	private final XmlNode preferences
 	private final boolean root
-	private File preferencesFile
+	private final File preferencesFile
 
 	/**
 	 * Constructor, creates a new top-level preference node.
@@ -65,7 +65,7 @@ class XmlPreferences extends AbstractPreferences {
 		preferencesFile = new File(
 			"${PREFERENCES_DIRECTORY}/${(username ? "user-preferences-${username}" : 'application-preferences')}.xml"
 		)
-		preferences = preferencesFile.exists() ? readXml() : new XmlRoot("")
+		preferences = preferencesFile.exists() ? readXml() : new XmlRoot('')
 		root = true
 	}
 
@@ -86,6 +86,7 @@ class XmlPreferences extends AbstractPreferences {
 			this.preferences = new XmlNode(name)
 			parent.preferences.nodes.add(this.preferences)
 		}
+		preferencesFile = null
 		root = false
 	}
 
@@ -168,10 +169,11 @@ class XmlPreferences extends AbstractPreferences {
 	 * 
 	 * @return JAXB object for the XML file root node.
 	 */
+	@SuppressWarnings('SynchronizedMethod')
 	private synchronized XmlRoot readXml() {
 
 		def xmlReader = new XmlReader<XmlRoot>(XmlRoot)
-//		xmlReader.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
+		xmlReader.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
 		return xmlReader.read(preferencesFile)
 	}
 
@@ -238,11 +240,12 @@ class XmlPreferences extends AbstractPreferences {
 	/**
 	 * Writes the current preferences data to the XML file.
 	 */
+	@SuppressWarnings('SynchronizedMethod')
 	private synchronized void writeXml() {
 
 		def xmlWriter = new XmlWriter<XmlRoot>(XmlRoot)
 //		xmlWriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL)
-//		xmlWriter.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
+		xmlWriter.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
 		xmlWriter.setFormatOutput(true)
 		xmlWriter.write(preferences, preferencesFile)
 	}

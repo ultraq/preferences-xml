@@ -26,8 +26,15 @@ import java.util.prefs.PreferencesFactory
  * 
  * @author Emanuel Rabina
  */
+@SuppressWarnings([
+	'AssignmentToStaticFieldFromInstanceMethod',
+	'ConfusingMethodName',
+	'CouldBeElvis',
+	'SynchronizedMethod'
+])
 class XmlPreferencesFactory implements PreferencesFactory {
 
+	@SuppressWarnings('FieldName')
 	private static final String username = System.getProperty('user.name').replace(' ', '').toLowerCase()
 
 	private static Preferences systemRoot
