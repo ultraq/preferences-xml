@@ -3,6 +3,7 @@ Preferences - XML
 =================
 
 [![Build Status](https://travis-ci.org/ultraq/preferences-xml.svg)](https://travis-ci.org/ultraq/preferences-xml)
+[![Coverage Status](https://coveralls.io/repos/github/ultraq/preferences-xml/badge.svg?branch=master)](https://coveralls.io/github/ultraq/preferences-xml?branch=master)
 [![GitHub Release](https://img.shields.io/github/release/ultraq/preferences-xml.svg?maxAge=3600)](https://github.com/ultraq/preferences-xml/releases/latest)
 [![Maven Central](https://img.shields.io/maven-central/v/nz.net.ultraq.preferences/preferences-xml.svg?maxAge=3600)](http://search.maven.org/#search|ga|1|g%3A%22nz.net.ultraq.preferences%22%20AND%20a%3A%22preferences-xml%22)
 [![License](https://img.shields.io/github/license/ultraq/preferences-xml.svg?maxAge=2592000)](https://github.com/ultraq/preferences-xml/blob/master/LICENSE.txt)
