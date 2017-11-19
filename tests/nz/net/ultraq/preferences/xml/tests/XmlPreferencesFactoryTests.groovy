@@ -20,7 +20,6 @@ import org.junit.BeforeClass
 import org.junit.Test
 import static org.junit.Assume.assumeFalse
 
-import java.util.prefs.BackingStoreException
 import java.util.prefs.Preferences
 
 /**
@@ -56,7 +55,7 @@ class XmlPreferencesFactoryTests {
 	 * Creates a system-wide preferences file.
 	 */
 	@Test
-	void createSystemPreferences() throws BackingStoreException {
+	void createSystemPreferences() {
 
 		Preferences preferences = Preferences.systemRoot()
 		preferences.flush()
@@ -69,7 +68,7 @@ class XmlPreferencesFactoryTests {
 	 * Creates a user-specific preferences file.
 	 */
 	@Test
-	void createUserPreferences() throws BackingStoreException {
+	void createUserPreferences() {
 
 		String username = System.getProperty('user.name').replace(' ', '').toLowerCase()
 		Preferences preferences = Preferences.userRoot()
