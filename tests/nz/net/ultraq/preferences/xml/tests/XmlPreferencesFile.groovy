@@ -24,7 +24,8 @@ import java.util.prefs.BackingStoreException
 import java.util.prefs.Preferences
 
 /**
- * Tests for the XML preferences library.
+ * Tests for the XML preferences file backing store.  Cannot run on the Travis
+ * CI environment.
  * 
  * @author Emanuel Rabina
  */
@@ -32,7 +33,7 @@ import java.util.prefs.Preferences
 	'BuilderMethodWithSideEffects',
 	'FactoryMethodName'
 ])
-class XmlPreferences {
+class XmlPreferencesFile {
 
 	/**
 	 * Test setup, clear everything out.

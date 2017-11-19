@@ -26,41 +26,34 @@ import java.util.prefs.PreferencesFactory
  * 
  * @author Emanuel Rabina
  */
-@SuppressWarnings([
-	'AssignmentToStaticFieldFromInstanceMethod',
-	'ConfusingMethodName',
-	'CouldBeElvis',
-	'SynchronizedMethod'
-])
 class XmlPreferencesFactory implements PreferencesFactory {
 
-	@SuppressWarnings('FieldName')
-	private static final String username = System.getProperty('user.name').replace(' ', '').toLowerCase()
-
-	private static Preferences systemRoot
-	private static Preferences userRoot
+	private Preferences systemPreferences
+	private Preferences userPreferences
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	synchronized Preferences systemRoot() {
+	@SuppressWarnings('CouldBeElvis')
+	Preferences systemRoot() {
 
-		if (!systemRoot) {
-			systemRoot = new XmlPreferences(null)
+		if (!systemPreferences) {
+			systemPreferences = new XmlPreferences(new XmlPreferencesFile('application-preferences'))
 		}
-		return systemRoot
+		return systemPreferences
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	synchronized Preferences userRoot() {
+	Preferences userRoot() {
 
-		if (!userRoot) {
-			userRoot = new XmlPreferences(username)
+		if (!userPreferences) {
+			def username = System.getProperty('user.name').replace(' ', '').toLowerCase()
+			userPreferences = new XmlPreferences(new XmlPreferencesFile("user-preferences-${username}"))
 		}
-		return userRoot
+		return userPreferences
 	}
 }

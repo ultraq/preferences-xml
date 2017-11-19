@@ -16,9 +16,6 @@
 
 package nz.net.ultraq.preferences.xml
 
-import nz.net.ultraq.jaxb.XmlReader
-import nz.net.ultraq.jaxb.XmlWriter
-
 import java.util.prefs.AbstractPreferences
 
 /**
@@ -31,42 +28,19 @@ import java.util.prefs.AbstractPreferences
  */
 class XmlPreferences extends AbstractPreferences {
 
-	// Sub-directory to store preferences files
-	static final String PREFERENCES_DIRECTORY = '.preferences'
-
-	// JAXB/Schema values
-	private static final String XML_PREFERENCES_SCHEMA = 'nz/net/ultraq/preferences/xml/Preferences.xsd'
-//	private static final String SCHEMA_NAMESPACE       = 'http://www.ultraq.net.nz/xml/preferences'
-//	private static final String SCHEMA_URL             = 'http://schemas.ultraq.net.nz/xml/preferences.xsd'
-
-	// JAXB representation of the preferences
+	private final XmlPreferencesFile preferencesFile
 	private final XmlNode preferences
-	private final boolean root
-	private final File preferencesFile
 
 	/**
 	 * Constructor, creates a new top-level preference node.
 	 * 
-	 * @param username Name of the current user if this object is for user
-	 *                 preferences, {@code null} for system preferences.
+	 * @param preferencesFile Backing file to use for these preferences.
 	 */
-	XmlPreferences(String username) {
+	XmlPreferences(XmlPreferencesFile preferencesFile) {
 
 		super(null, '')
-
-		// Ensure preferences directory exists
-		def preferencesDirectory = new File(PREFERENCES_DIRECTORY)
-		if (!preferencesDirectory.exists()) {
-			preferencesDirectory.mkdir()
-		}
-
-		// Check if a preferences file already exists (reading from that one if it
-		// does), create one otherwise
-		preferencesFile = new File(
-			"${PREFERENCES_DIRECTORY}/${(username ? "user-preferences-${username}" : 'application-preferences')}.xml"
-		)
-		preferences = preferencesFile.exists() ? readXml() : new XmlRoot('')
-		root = true
+		this.preferencesFile = preferencesFile
+		preferences = preferencesFile.read()
 	}
 
 	/**
@@ -79,6 +53,7 @@ class XmlPreferences extends AbstractPreferences {
 	private XmlPreferences(XmlPreferences parent, XmlNode preferences, String name) {
 
 		super(parent, name)
+		preferencesFile = null
 		if (preferences) {
 			this.preferences = preferences
 		}
@@ -86,17 +61,16 @@ class XmlPreferences extends AbstractPreferences {
 			this.preferences = new XmlNode(name)
 			parent.preferences.nodes.add(this.preferences)
 		}
-		preferencesFile = null
-		root = false
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
+	@SuppressWarnings('UnnecessaryCollectCall')
 	protected String[] childrenNamesSpi() {
 
-		return preferences.nodes.map { node -> node.name }
+		return preferences.nodes.collect { node -> node.name }
 	}
 
 	/**
@@ -106,7 +80,7 @@ class XmlPreferences extends AbstractPreferences {
 	protected XmlPreferences childSpi(String name) {
 
 		def childNode = preferences.nodes.find { node -> node.name == name }
-		return childNode ?: new XmlPreferences(this, null, name)
+		return childNode ? new XmlPreferences(this, childNode, name) : new XmlPreferences(this, null, name)
 	}
 
 	/**
@@ -115,12 +89,10 @@ class XmlPreferences extends AbstractPreferences {
 	@Override
 	void flush() {
 
-		// Flush cannot be called on a child node
-		if (!root) {
+		if (!preferencesFile) {
 			throw new UnsupportedOperationException('flush() cannot be called on a child node')
 		}
-
-		writeXml()
+		preferencesFile.write(preferences)
 	}
 
 	/**
@@ -144,9 +116,10 @@ class XmlPreferences extends AbstractPreferences {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@SuppressWarnings('UnnecessaryCollectCall')
 	protected String[] keysSpi() {
 
-		return preferences.entries.map { entry -> entry.key }
+		return preferences.entries.collect { entry -> entry.key }
 	}
 
 	/**
@@ -162,19 +135,6 @@ class XmlPreferences extends AbstractPreferences {
 		else {
 			preferences.entries.add(new XmlEntry(key, value))
 		}
-	}
-
-	/**
-	 * Reads and returns the data from the preferences file.
-	 * 
-	 * @return JAXB object for the XML file root node.
-	 */
-	@SuppressWarnings('SynchronizedMethod')
-	private synchronized XmlRoot readXml() {
-
-		def xmlReader = new XmlReader<XmlRoot>(XmlRoot)
-		xmlReader.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
-		return xmlReader.read(preferencesFile)
 	}
 
 	/**
@@ -202,14 +162,13 @@ class XmlPreferences extends AbstractPreferences {
 	@Override
 	void sync() {
 
-		// Sync cannot be called on a child node
-		if (!root) {
+		if (!preferencesFile) {
 			throw new UnsupportedOperationException('sync() cannot be called on a child node')
 		}
 
 		// Update from the XML file, then write it back out
-		syncFromNode(readXml())
-		writeXml()
+		syncFromNode(preferencesFile.read())
+		preferencesFile.write(preferences)
 	}
 
 	/**
@@ -235,18 +194,5 @@ class XmlPreferences extends AbstractPreferences {
 	 */
 	@Override
 	protected void syncSpi() {
-	}
-
-	/**
-	 * Writes the current preferences data to the XML file.
-	 */
-	@SuppressWarnings('SynchronizedMethod')
-	private synchronized void writeXml() {
-
-		def xmlWriter = new XmlWriter<XmlRoot>(XmlRoot)
-//		xmlWriter.setSchemaLocation(SCHEMA_NAMESPACE, SCHEMA_URL)
-		xmlWriter.addValidatingSchema(this.class.classLoader.getResourceAsStream(XML_PREFERENCES_SCHEMA))
-		xmlWriter.setFormatOutput(true)
-		xmlWriter.write(preferences, preferencesFile)
 	}
 }
