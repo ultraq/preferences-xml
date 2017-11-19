@@ -26,14 +26,14 @@ apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/maven
 apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/bundle.gradle'
 apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/jaxb.gradle'
 
-//project.name      = 'Preferences - XML'
+//project.name      = 'preferences-xml'
 project.description = 'An implementation of the Java Preferences API (java.util.prefs) to store preferences in an XML file, in a subdirectory of a Java program\'s working directory'
 project.archivesBaseName = 'preferences-xml'
 project.sourceCompatibility = '1.8'
 
 project.group    = 'nz.net.ultraq.preferences'
 project.artifact = 'preferences-xml'
-project.version  = '1.3.0-SNAPSHOT'
+project.version  = '2.0.0-SNAPSHOT'
 project.year     = '2007'
 
 sourceSets {
@@ -58,10 +58,8 @@ dependencies {
 		'org.codehaus.groovy:groovy:2.4.12'
 	)
 	testCompile(
-		'junit:junit:4.12'
-	)
-	testCompile(
-		'junit:junit:4.12'
+		'junit:junit:4.12',
+		'org.mockito:mockito-core:2.12.0'
 	)
 	testRuntime(
 		'org.slf4j:slf4j-api:1.7.10'
@@ -90,7 +88,17 @@ codenarc {
 }
 
 cobertura {
+	coverageDirs = [
+		sourceSets.main.output.classesDirs
+	]
 	coverageFormats = ['html', 'xml']
+	coverageExcludes = [
+	  '.*nz.net.ultraq.preferences.xml.ObjectFactory.*',
+		'.*nz.net.ultraq.preferences.xml.XmlEntry.*',
+		'.*nz.net.ultraq.preferences.xml.XmlNode.*',
+		'.*nz.net.ultraq.preferences.xml.XmlRoot.*',
+		'.*nz.net.ultraq.preferences.xml.package-info.*'
+	]
 }
 
 // Disable doclint as it errors on many of the generated files

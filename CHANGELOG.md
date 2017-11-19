@@ -2,9 +2,9 @@
 Changelog
 =========
 
-### 1.3.0
- - Project structure reorganization after major updates to the Gradle build
-   scripts.
+### 2.0.0
+ - Project rewritten in Groovy
+ - Minimum Java version upped to 8
 
 ### 1.2.2
  - Switched from Ant to Gradle as a build tool.
