@@ -23,8 +23,10 @@ import nz.net.ultraq.preferences.xml.XmlRoot
 
 import org.junit.Before
 import org.junit.Test
-import org.junit.rules.ExpectedException
-import static org.mockito.Mockito.*
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.never
+import static org.mockito.Mockito.verify
+import static org.mockito.Mockito.when
 
 /**
  * Tests for the XML preferences class using a mock backing store.
@@ -132,6 +134,7 @@ class XmlPreferencesTests {
 	 * Cannot flush child nodes.
 	 */
 	@Test
+	@SuppressWarnings('EmptyCatchBlock')
 	void flushThrowExceptionOnChildNodes() {
 
 		def xmlPreferences = new XmlPreferences(mockXmlPreferencesFile)
