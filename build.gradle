@@ -21,10 +21,10 @@ plugins {
 	id 'net.saliman.cobertura' version '2.5.1'
 	id 'com.github.kt3k.coveralls' version '2.8.1'
 }
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/gradle-support.gradle'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/maven-support.gradle'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/bundle.gradle'
-apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.0.1/jaxb.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.1.0/gradle-support.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.1.0/maven-support.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.1.0/bundle.gradle'
+apply from: 'https://raw.githubusercontent.com/ultraq/gradle-support/2.1.0/jaxb.gradle'
 
 //project.name      = 'preferences-xml'
 project.description = 'An implementation of the Java Preferences API (java.util.prefs) to store preferences in an XML file, in a subdirectory of a Java program\'s working directory'
@@ -82,16 +82,7 @@ xjc {
 	]
 }
 
-codenarc {
-	def sharedConfig = 'https://raw.githubusercontent.com/ultraq/codenarc-config-ultraq/master/codenarc.groovy'.toURL().text
-	config = resources.text.fromString(sharedConfig)
-}
-
 cobertura {
-	coverageDirs = [
-		sourceSets.main.output.classesDirs
-	]
-	coverageFormats = ['html', 'xml']
 	coverageExcludes = [
 	  '.*nz.net.ultraq.preferences.xml.ObjectFactory.*',
 		'.*nz.net.ultraq.preferences.xml.XmlEntry.*',
